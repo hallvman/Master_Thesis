@@ -8,6 +8,10 @@ curl -sSL https://get.docker.com/ | sudo sh
 ```bash
 docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:8.0.26
 ```
+If access denied to Docker daemon socket run the following codde:
+```bash
+sudo chmod 666 /var/run/docker.sock
+```
 3. Go the the docker bash. Write "docker ps" in the terminal to display the name. 
 ```bash
 docker exec -it [container_name] bash
