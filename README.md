@@ -1,6 +1,9 @@
 # Master_Thesis
 
-1. Install docker (and docker desktop if you would like a GUI for docker)
+1. Install docker
+```bash
+curl -sSL https://get.docker.com/ | sudo sh
+```
 2. Create a docker container with a MySql database. Change "mysql" with the container name and "root" with the root password. 
 ```bash
 docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:8.0.26
