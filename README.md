@@ -17,19 +17,13 @@ docker exec -it [container_name] bash
 mysql -uroot -p
 ```
 5. An password input is prompted. Write the password used in step 6.
-6. Create an admin user with all right:
+6. Create an admin user with all right (Remember to use: ‘):
 ```bash
 CREATE USER ‘YOUR_USERNAME_HERE’@’%’ IDENTIFIED BY ‘YOUR_PASSWORD_IN_PLAIN_TEXT_HERE’;
 ```
 7. Give that user all rights:
 ```bash
 GRANT ALL PRIVILEGES ON *.* TO ‘YOUR_USERNAME_HERE’@’%’ WITH GRANT OPTION;
-```
-
-Yes, write the username using quotas ‘’. Here is an example for username=testuser and password=test123:
-```bash
-CREATE USER ‘testuser’@’%’ IDENTIFIED BY ‘test123’;
-GRANT ALL PRIVILEGES ON *.* TO ‘testuser’@’%’ WITH GRANT OPTION;
 ```
 8. Flush the privileges
 ```bash
