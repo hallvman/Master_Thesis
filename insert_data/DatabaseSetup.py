@@ -35,7 +35,7 @@ class DatabaseSetup:
         query = """CREATE TABLE IF NOT EXISTS ACTIVITY (
                    id varchar(128) NOT NULL PRIMARY KEY,
                    user_id VARCHAR(50) NOT NULL,
-                   FOREIGN KEY (user_id) REFERENCES test_db.USER(id),
+                   FOREIGN KEY (user_id) REFERENCES Master_Thesis_DB.USER(id),
                    transportation_mode VARCHAR(30), 
                    start_date_time DATETIME,
                    end_date_time DATETIME);
@@ -47,7 +47,7 @@ class DatabaseSetup:
         query = """CREATE TABLE IF NOT EXISTS TRACK_POINT (
                    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
                    activity_id varchar(128) NOT NULL,
-                   FOREIGN KEY (activity_id) REFERENCES test_db.ACTIVITY(id),
+                   FOREIGN KEY (activity_id) REFERENCES Master_Thesis_DB.ACTIVITY(id),
                    lat DOUBLE,
                    lon DOUBLE, 
                    altitude INT,
@@ -58,14 +58,14 @@ class DatabaseSetup:
         self.db_connection.commit()
 
     def print_users(self):
-        query = "SELECT * FROM test_db.USER"
+        query = "SELECT * FROM Master_Thesis_DB.USER"
         self.cursor.execute(query)
         rows = self.cursor.fetchall()
         # Using tabulate to show the table in a nice way
         print(f"Data from table USERS tabulated:\n{tabulate(rows, headers=self.cursor.column_names)}")
 
     def print_activity(self):
-        query = "SELECT * FROM test_db.ACTIVITY"
+        query = "SELECT * FROM Master_Thesis_DB.ACTIVITY"
         self.cursor.execute(query)
         rows = self.cursor.fetchall()
         # Using tabulate to show the table in a nice way
@@ -80,7 +80,7 @@ class DatabaseSetup:
         print('Are you sure you would like to drop the tables? (Y/N)')
         decision = input()
         if decision == "Y" or decision == "y":
-            query = """DROP TABLE test_db.USER, test_db.ACTIVITY, test_db.TRACK_POINT CASCADE """
+            query = """DROP TABLE Master_Thesis_DB.USER, Master_Thesis_DB.ACTIVITY, Master_Thesis_DB.TRACK_POINT CASCADE """
             self.cursor.execute(query)
             print('Tables dropped')
         else:
@@ -144,7 +144,7 @@ class DatabaseSetup:
                 has_label = False
                 if user in user_labels:
                     has_label = True
-                query = "INSERT INTO test_db.USER (id, has_labels) VALUES ('%s', %s)"
+                query = "INSERT INTO Master_Thesis_DB.USER (id, has_labels) VALUES ('%s', %s)"
                 self.cursor.execute(query % (user, has_label))
             self.db_connection.commit()
         except Exception as e:
@@ -307,12 +307,12 @@ class DatabaseSetup:
         @rtype: None
         """
         if activity.transportation_mode is None:
-            query = """INSERT INTO test_db.ACTIVITY (id, user_id, start_date_time, end_date_time) 
+            query = """INSERT INTO Master_Thesis_DB.ACTIVITY (id, user_id, start_date_time, end_date_time) 
                                 VALUES ('%s', '%s','%s','%s')"""
             self.cursor.execute(query % (
                 activity.id, activity.user_id, activity.start_date_time, activity.end_date_time))
         else:
-            query = """INSERT INTO test_db.ACTIVITY (id, user_id, transportation_mode, start_date_time, end_date_time) 
+            query = """INSERT INTO Master_Thesis_DB.ACTIVITY (id, user_id, transportation_mode, start_date_time, end_date_time) 
                                                 VALUES ('%s', '%s','%s', '%s', '%s')"""
             self.cursor.execute(query % (
                 activity.id, activity.user_id, activity.transportation_mode, activity.start_date_time,
@@ -329,7 +329,7 @@ class DatabaseSetup:
         @rtype: None
         """
 
-        trajectory_query = """INSERT INTO test_db.TRACK_POINT (activity_id, lat, lon, altitude, data_days, data_time) 
+        trajectory_query = """INSERT INTO Master_Thesis_DB.TRACK_POINT (activity_id, lat, lon, altitude, data_days, data_time) 
                                   VALUES (%s, %s, %s, %s, %s, %s)"""
         self.cursor.executemany(trajectory_query, track_points)
         self.db_connection.commit()
@@ -343,7 +343,7 @@ class DatabaseSetup:
         @rtype: None
         """
 
-        users_query = """INSERT INTO test_db.TRACK_POINT (id, has_label) 
+        users_query = """INSERT INTO Master_Thesis_DB.TRACK_POINT (id, has_label) 
                                   VALUES (%s, %s)"""
         self.cursor.executemany(users_query, users)
         self.db_connection.commit()
