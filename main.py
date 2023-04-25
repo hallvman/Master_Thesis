@@ -9,7 +9,7 @@ def connect():
     # Creates a database setup object
     setup = DatabaseSetup(connector)
     # Drops the table if it is already created
-    setup.drop_tables()
+    # setup.drop_tables()
     # Creates the tables if they don't already exist
     setup.create_tables()
     # Insert user.
