@@ -20,7 +20,7 @@ class DbConnector:
     """
 
     def __init__(self,
-                 HOST="hallvman@51.120.52.163",
+                 HOST="localhost",
                  DATABASE="",
                  USER="hallvman",
                  PASSWORD="hallvman"):
