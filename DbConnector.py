@@ -21,7 +21,7 @@ class DbConnector:
 
     def __init__(self,
                  HOST="localhost",
-                 DATABASE="",
+                 DATABASE="Master_Thesis_DB",
                  USER="hallvman",
                  PASSWORD="hallvman"):
         # Connect to the database
