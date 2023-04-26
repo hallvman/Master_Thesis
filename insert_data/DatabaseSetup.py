@@ -22,20 +22,21 @@ class DatabaseSetup:
         self.labels_dict = {}
 
     def create_user_table(self):
-        print("\n---- Trying to create User Tables ----\n")
         try:
+            print("\n---- Trying to create User Table ----")
             query = """CREATE TABLE IF NOT EXISTS USER (
                    id VARCHAR(50) NOT NULL PRIMARY KEY,
                    has_labels BOOLEAN);
                 """
             self.cursor.execute(query)
             self.db_connection.commit()
+            print("\n---- User Table Created----\n")
         except Exception as e:
             print("User Table not created: ", e)
 
     def create_activity_table(self):
-        print("\n---- Trying to create Activity Tables ----\n")
         try:
+            print("\n---- Trying to create Activity Table ----")
             query = """CREATE TABLE IF NOT EXISTS ACTIVITY (
                    id varchar(128) NOT NULL PRIMARY KEY,
                    user_id VARCHAR(50) NOT NULL,
@@ -46,12 +47,13 @@ class DatabaseSetup:
                 """
             self.cursor.execute(query)
             self.db_connection.commit()
+            print("\n---- Activity Table Created ----\n")
         except Exception as e:
             print("Activity Table not created: ", e)
 
     def create_track_point_table(self):
-        print("\n---- Trying to create Tack Points Tables ----\n")
         try:
+            print("\n---- Trying to create Tack Points Table ----\n")
             query = """CREATE TABLE IF NOT EXISTS TRACK_POINT (
                    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
                    activity_id varchar(128) NOT NULL,
@@ -64,6 +66,7 @@ class DatabaseSetup:
                 """
             self.cursor.execute(query)
             self.db_connection.commit()
+            print("\n---- Tack Points Table Created ----\n")
         except Exception as e:
             print("Track Points Table not created:", e)
 
@@ -78,7 +81,7 @@ class DatabaseSetup:
         if decision == "Y" or decision == "y":
             query = """DROP TABLE Master_Thesis_DB.USER, Master_Thesis_DB.ACTIVITY, Master_Thesis_DB.TRACK_POINT CASCADE """
             self.cursor.execute(query)
-            print('Tables dropped')
+            print('\n---- Tables dropped ----\n')
         else:
             print('No tables were dropped')
 
@@ -86,7 +89,7 @@ class DatabaseSetup:
         return extension == ".plt"
 
     def get_extension(self, path):
-        name, extension = os.path.splitext(path)
+        extension = os.path.splitext(path)
         return extension
 
     def get_nr_of_lines(self, path):
@@ -131,6 +134,7 @@ class DatabaseSetup:
         user_ids = self.get_user_ids()
 
         try:
+            print("\n---- Trying to insert Users in USER-table ----")
             for user in user_ids:
                 has_label = False
                 if user in user_labels:
@@ -138,6 +142,7 @@ class DatabaseSetup:
                 query = "INSERT INTO Master_Thesis_DB.USER (id, has_labels) VALUES ('%s', %s)"
                 self.cursor.execute(query % (user, has_label))
             self.db_connection.commit()
+            print("\n---- Users Inserted in table: USER ----\n")
         except Exception as e:
             print(f'An error occurred while inserting users:{sys.exc_info()[2]}')
 
@@ -269,25 +274,30 @@ class DatabaseSetup:
         """
 
         # populate label_dict
-        self.create_label_activities()
-        for root, dirs, files in os.walk('dataset/Data', topdown=True):
-            if len(dirs) == 0 and len(files) > 0:
-                for file in files:
-                    path = os.path.join(root, file)  # The current path
-                    if self.is_plt_file(self.get_extension(path)) and self.get_nr_of_lines(path) <= 2500:
-                        activity = self.create_activity(root, file)
-                        self.insert_activity(activity)  # Inserts the activity into the database
-                        track_point_list = []  # A list to batch insert the trajectories
-                        with open(os.path.join(root, file)) as f:  # opens the current file
-                            for read in range(6):
-                                f.readline()
+        try:
+            print("\n---- Trying to travers the dataset ----\n")
+            self.create_label_activities()
+            for root, dirs, files in os.walk('dataset/Data', topdown=True):
+                if len(dirs) == 0 and len(files) > 0:
+                    for file in files:
+                        path = os.path.join(root, file)  # The current path
+                        if self.is_plt_file(self.get_extension(path)) and self.get_nr_of_lines(path) <= 2500:
+                            activity = self.create_activity(root, file)
+                            self.insert_activity(activity)  # Inserts the activity into the database
+                            track_point_list = []  # A list to batch insert the trajectories
+                            with open(os.path.join(root, file)) as f:  # opens the current file
+                                for read in range(6):
+                                    f.readline()
 
-                            for line in f:
-                                latitude, longitude, altitude, days_passed, start_time = \
-                                    self.format_trajectory_line(line)
-                                track_point_list.append(
-                                    (activity.id, latitude, longitude, altitude, days_passed, start_time))
-                        self.batch_insert_track_points(track_point_list)  # Batch insert the track points in this file
+                                for line in f:
+                                    latitude, longitude, altitude, days_passed, start_time = \
+                                        self.format_trajectory_line(line)
+                                    track_point_list.append(
+                                        (activity.id, latitude, longitude, altitude, days_passed, start_time))
+                            self.batch_insert_track_points(track_point_list)  # Batch insert the track points in this file
+            print("\n---- Traversing Completed ----\n")
+        except Exception as e:
+            print(f"Error Message: {e}")
 
     def insert_activity(self, activity: Activity):
         """
