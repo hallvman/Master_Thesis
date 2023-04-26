@@ -79,7 +79,7 @@ class DatabaseSetup:
         print('Are you sure you would like to drop the tables? (Y/N)')
         decision = input()
         if decision == "Y" or decision == "y":
-            query = """DROP TABLE Master_Thesis_DB.USER, Master_Thesis_DB.ACTIVITY, Master_Thesis_DB.TRACK_POINT CASCADE """
+            query = """DROP TABLE Master_Thesis_DB.USER, Master_Thesis_DB.ACTIVITY, Master_Thesis_DB.TRACK_POINT, Master_Thesis_DB.TRACK_POINTS CASCADE """
             self.cursor.execute(query)
             print('\n---- Tables dropped ----\n')
         else:
