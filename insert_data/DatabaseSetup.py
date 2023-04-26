@@ -24,17 +24,12 @@ class DatabaseSetup:
         self.labels_dict = {}
 
     def create_user_table(self):
-        try:
-            print("\n---- Trying to create User Table ----")
-            query = """CREATE TABLE IF NOT EXISTS USER (
+        query = """CREATE TABLE IF NOT EXISTS USER (
                    id VARCHAR(50) NOT NULL PRIMARY KEY,
                    has_labels BOOLEAN);
                 """
-            self.cursor.execute(query)
-            self.db_connection.commit()
-            print("\n---- User Table Created----\n")
-        except Exception as e:
-            print("User Table not created: ", e)
+        self.cursor.execute(query)
+        self.db_connection.commit()
 
     def create_activity_table(self):
         query = """CREATE TABLE IF NOT EXISTS ACTIVITY (
@@ -62,24 +57,12 @@ class DatabaseSetup:
         self.cursor.execute(query)
         self.db_connection.commit()
 
-    def print_users(self):
-        query = "SELECT * FROM Master_Thesis_DB.USER"
-        self.cursor.execute(query)
-        rows = self.cursor.fetchall()
-        # Using tabulate to show the table in a nice way
-        print(f"Data from table USERS tabulated:\n{tabulate(rows, headers=self.cursor.column_names)}")
-
-    def print_activity(self):
-        query = "SELECT * FROM Master_Thesis_DB.ACTIVITY"
-        self.cursor.execute(query)
-        rows = self.cursor.fetchall()
-        # Using tabulate to show the table in a nice way
-        print(f"Data from table USERS tabulated:\n{tabulate(rows, headers=self.cursor.column_names)}")
-
     def create_tables(self):
+        print("\n---- Creating Databases ----\n")
         self.create_user_table()
         self.create_activity_table()
         self.create_track_point_table()
+        print("\n---- Databases Created ----\n")
 
     def drop_tables(self):
         print('Are you sure you would like to drop the tables? (Y/N)')
