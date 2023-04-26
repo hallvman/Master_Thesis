@@ -24,12 +24,17 @@ class DatabaseSetup:
         self.labels_dict = {}
 
     def create_user_table(self):
-        query = """CREATE TABLE IF NOT EXISTS USER (
+        try:
+            print("\n---- Trying to create User Table ----")
+            query = """CREATE TABLE IF NOT EXISTS USER (
                    id VARCHAR(50) NOT NULL PRIMARY KEY,
                    has_labels BOOLEAN);
                 """
-        self.cursor.execute(query)
-        self.db_connection.commit()
+            self.cursor.execute(query)
+            self.db_connection.commit()
+            print("\n---- User Table Created----\n")
+        except Exception as e:
+            print("User Table not created: ", e)
 
     def create_activity_table(self):
         query = """CREATE TABLE IF NOT EXISTS ACTIVITY (
@@ -85,11 +90,6 @@ class DatabaseSetup:
             print('Tables dropped')
         else:
             print('No tables were dropped')
-
-    def show_tables(self):
-        self.cursor.execute("SHOW TABLES")
-        rows = self.cursor.fetchall()
-        print(tabulate(rows, headers=self.cursor.column_names))
 
     def is_plt_file(self, extension):
         return extension == ".plt"
