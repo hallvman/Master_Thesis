@@ -39,7 +39,7 @@ def main():
     initiateDatabase()
 
     # Runs queries
-    queries()
+    # queries()
 
 
 if __name__ == "__main__":
