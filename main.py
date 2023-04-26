@@ -38,14 +38,14 @@ def queries():
 
 def main():
     # Sets up the database and inserts data
-    start_time = datetime.now()
-    print(timedelta(start_time))
+    start_time = time.monotonic()
+    print(timedelta(seconds=start_time))
     initiateDatabase()
 
     # Runs queries
     queries()
-    end_time = datetime.now()
-    print(timedelta(end_time))
+    end_time = time.monotonic()
+    print(timedelta(seconds=end_time))
     print(timedelta(seconds=end_time - start_time))
 
 
