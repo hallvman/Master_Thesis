@@ -53,7 +53,7 @@ class DatabaseSetup:
 
     def create_track_point_table(self):
         try:
-            print("\n---- Trying to create Tack Points Table ----\n")
+            print("\n---- Trying to create Tack Points Table ----")
             query = """CREATE TABLE IF NOT EXISTS TRACK_POINT (
                    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
                    activity_id varchar(128) NOT NULL,
@@ -274,30 +274,25 @@ class DatabaseSetup:
         """
 
         # populate label_dict
-        try:
-            print("\n---- Trying to travers the dataset ----\n")
-            self.create_label_activities()
-            for root, dirs, files in os.walk('dataset/Data', topdown=True):
-                if len(dirs) == 0 and len(files) > 0:
-                    for file in files:
-                        path = os.path.join(root, file)  # The current path
-                        if self.is_plt_file(self.get_extension(path)) and self.get_nr_of_lines(path) <= 2500:
-                            activity = self.create_activity(root, file)
-                            self.insert_activity(activity)  # Inserts the activity into the database
-                            track_point_list = []  # A list to batch insert the trajectories
-                            with open(os.path.join(root, file)) as f:  # opens the current file
-                                for read in range(6):
-                                    f.readline()
+        self.create_label_activities()
+        for root, dirs, files in os.walk('dataset/Data', topdown=True):
+            if len(dirs) == 0 and len(files) > 0:
+                for file in files:
+                    path = os.path.join(root, file)  # The current path
+                    if self.is_plt_file(self.get_extension(path)) and self.get_nr_of_lines(path) <= 2500:
+                        activity = self.create_activity(root, file)
+                        self.insert_activity(activity)  # Inserts the activity into the database
+                        track_point_list = []  # A list to batch insert the trajectories
+                        with open(os.path.join(root, file)) as f:  # opens the current file
+                            for read in range(6):
+                                f.readline()
 
-                                for line in f:
-                                    latitude, longitude, altitude, days_passed, start_time = \
-                                        self.format_trajectory_line(line)
-                                    track_point_list.append(
-                                        (activity.id, latitude, longitude, altitude, days_passed, start_time))
-                            self.batch_insert_track_points(track_point_list)  # Batch insert the track points in this file
-            print("\n---- Traversing Completed ----\n")
-        except Exception as e:
-            print(f"Error Message: {e}")
+                            for line in f:
+                                latitude, longitude, altitude, days_passed, start_time = \
+                                    self.format_trajectory_line(line)
+                                track_point_list.append(
+                                    (activity.id, latitude, longitude, altitude, days_passed, start_time))
+                        self.batch_insert_track_points(track_point_list)  # Batch insert the track points in this file
 
     def insert_activity(self, activity: Activity):
         """
