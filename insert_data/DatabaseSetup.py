@@ -5,7 +5,7 @@ import uuid
 from tabulate import tabulate
 
 from DbConnector import DbConnector
-from Activity import Activity
+from insert_data.Activity import Activity
 
 """
 Handles the database setup.
