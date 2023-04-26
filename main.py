@@ -36,10 +36,10 @@ def queries():
 
 def main():
     # Sets up the database and inserts data
-    initiateDatabase()
+    # initiateDatabase()
 
     # Runs queries
-    # queries()
+    queries()
 
 
 if __name__ == "__main__":
