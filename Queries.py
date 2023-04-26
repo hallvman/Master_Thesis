@@ -23,7 +23,7 @@ class Queries:
             query = "SELECT Count(*) FROM Master_Thesis_DB.ACTIVITY"
             print(f"\nTrying to run query: {query}\n")
             self.cursor.execute(query) # Execute the query
-            rows = self.cursor.fetchhall() # Fetch the rows
+            rows = self.cursor.fetchall() # Fetch the rows
             print(f"Number of Activities:\n {tabulate(rows)}")
         except Exception as e:
             print(f"Error Mesaage: {e}")
@@ -33,7 +33,7 @@ class Queries:
             query = "SELECT Count(*) FROM Master_Thesis_DB.TRACK_POINTS"
             print(f"\nTrying to run query: {query}\n")
             self.cursor.execute(query) # Execute the query
-            rows = self.cursor.fetchhall() # Fetch the rows
+            rows = self.cursor.fetchall() # Fetch the rows
             print(f"Number of Track_Points:\n {tabulate(rows)}")
         except Exception as e:
            print(f"Error Mesaage: {e}") 
