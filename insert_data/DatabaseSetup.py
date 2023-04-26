@@ -54,7 +54,7 @@ class DatabaseSetup:
     def create_track_point_table(self):
         try:
             print("\n---- Trying to create Tack Points Table ----\n")
-            query = """CREATE TABLE IF NOT EXISTS TRACK_POINTS (
+            query = """CREATE TABLE IF NOT EXISTS TRACK_POINT (
                    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
                    activity_id varchar(128) NOT NULL,
                    FOREIGN KEY (activity_id) REFERENCES Master_Thesis_DB.ACTIVITY(id),

@@ -30,7 +30,7 @@ class Queries:
 
     def numberOfTrackPoints(self):
         try:
-            query = "SELECT Count(*) FROM Master_Thesis_DB.TRACK_POINTS"
+            query = "SELECT Count(*) FROM Master_Thesis_DB.TRACK_POINT"
             print(f"\nTrying to run query: {query}\n")
             self.cursor.execute(query) # Execute the query
             rows = self.cursor.fetchall() # Fetch the rows
