@@ -2,23 +2,44 @@ import sys
 
 from DbConnector import DbConnector
 from insert_data.DatabaseSetup import DatabaseSetup
+from Queries import Queries
 
-def connect():
-    # Creates a connection with the database
+def initiateDatabase():
+    connector = DbConnector() # Connect to the database
+    initiate = DatabaseSetup(connector) # Initiate state object
+    
+    # Drops tables if they exist
+    initiate.drop_tables()
+    
+    # Creates the tables for the database
+    initiate.create_tables()
+    
+    # Inserts users to the database
+    initiate.insert_users()
+    
+    # Traverses the activities and track points
+    initiate.traverse_dataset()
+
+def queries():
+    # Connector to the database and create query object
     connector = DbConnector()
-    # Creates a database setup object
-    setup = DatabaseSetup(connector)
-    # Drops the table if it is already created
-    setup.drop_tables()
-    # Creates the tables if they don't already exist
-    setup.create_tables()
-    # Insert user.
-    setup.insert_users()
-    # Inserts activities and track points
-    setup.traverse_dataset()
+    query = Queries(connector)
+
+    # Runs the query for number of Users
+    query.numberOfUsers() 
+
+    # Runs the query for number of Activities
+    query.numberOfActivities() 
+
+    # Runs the query for number of Track Points
+    query.numberOfTrackPoints()
 
 def main():
-    connect()
+    # Sets up the database and inserts data
+    initiateDatabase()
+
+    # Runs queries
+    queries()
 
 
 if __name__ == "__main__":

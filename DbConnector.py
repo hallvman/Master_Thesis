@@ -1,29 +1,14 @@
-
-import os
-from dotenv import load_dotenv
-
 import mysql.connector as mysql
 
-load_dotenv()
-
-
 class DbConnector:
-    """
-    Connects to the MySQL server on the Ubuntu virtual machine.
-    Connector needs HOST, DATABASE, USER and PASSWORD to connect,
-    while PORT is optional and should be 3306.
-    Example:
-    HOST = "tdt4225-00.idi.ntnu.no" // Your server IP address/domain name
-    DATABASE = "testdb" // Database name, if you just want to connect to MySQL server, leave it empty
-    USER = "testuser" // This is the user you created and added privileges for
-    PASSWORD = "test123" // The password you set for said user
-    """
 
+    # Initiate the connection to the database
     def __init__(self,
                  HOST="localhost",
                  DATABASE="Master_Thesis_DB",
                  USER="hallvman",
                  PASSWORD="hallvman"):
+        
         # Connect to the database
         try:
             self.db_connection = mysql.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD, port=3306)

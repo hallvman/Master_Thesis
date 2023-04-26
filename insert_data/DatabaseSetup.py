@@ -14,9 +14,7 @@ Handles the database setup.
 - Prints data from the database
 """
 
-
 class DatabaseSetup:
-
     def __init__(self, connection: DbConnector):
         self.connection = connection
         self.db_connection = self.connection.db_connection
@@ -24,15 +22,21 @@ class DatabaseSetup:
         self.labels_dict = {}
 
     def create_user_table(self):
-        query = """CREATE TABLE IF NOT EXISTS USER (
+        print("\n---- Trying to create User Tables ----\n")
+        try:
+            query = """CREATE TABLE IF NOT EXISTS USER (
                    id VARCHAR(50) NOT NULL PRIMARY KEY,
                    has_labels BOOLEAN);
                 """
-        self.cursor.execute(query)
-        self.db_connection.commit()
+            self.cursor.execute(query)
+            self.db_connection.commit()
+        except Exception as e:
+            print("User Table not created: ", e)
 
     def create_activity_table(self):
-        query = """CREATE TABLE IF NOT EXISTS ACTIVITY (
+        print("\n---- Trying to create Activity Tables ----\n")
+        try:
+            query = """CREATE TABLE IF NOT EXISTS ACTIVITY (
                    id varchar(128) NOT NULL PRIMARY KEY,
                    user_id VARCHAR(50) NOT NULL,
                    FOREIGN KEY (user_id) REFERENCES Master_Thesis_DB.USER(id),
@@ -40,11 +44,15 @@ class DatabaseSetup:
                    start_date_time DATETIME,
                    end_date_time DATETIME);
                 """
-        self.cursor.execute(query)
-        self.db_connection.commit()
+            self.cursor.execute(query)
+            self.db_connection.commit()
+        except Exception as e:
+            print("Activity Table not created: ", e)
 
     def create_track_point_table(self):
-        query = """CREATE TABLE IF NOT EXISTS TRACK_POINT (
+        print("\n---- Trying to create Tack Points Tables ----\n")
+        try:
+            query = """CREATE TABLE IF NOT EXISTS TRACK_POINT (
                    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
                    activity_id varchar(128) NOT NULL,
                    FOREIGN KEY (activity_id) REFERENCES Master_Thesis_DB.ACTIVITY(id),
@@ -54,22 +62,10 @@ class DatabaseSetup:
                    data_days DOUBLE, 
                    data_time DATETIME);
                 """
-        self.cursor.execute(query)
-        self.db_connection.commit()
-
-    def print_users(self):
-        query = "SELECT * FROM Master_Thesis_DB.USER"
-        self.cursor.execute(query)
-        rows = self.cursor.fetchall()
-        # Using tabulate to show the table in a nice way
-        print(f"Data from table USERS tabulated:\n{tabulate(rows, headers=self.cursor.column_names)}")
-
-    def print_activity(self):
-        query = "SELECT * FROM Master_Thesis_DB.ACTIVITY"
-        self.cursor.execute(query)
-        rows = self.cursor.fetchall()
-        # Using tabulate to show the table in a nice way
-        print(f"Data from table USERS tabulated:\n{tabulate(rows, headers=self.cursor.column_names)}")
+            self.cursor.execute(query)
+            self.db_connection.commit()
+        except Exception as e:
+            print("Track Points Table not created:", e)
 
     def create_tables(self):
         self.create_user_table()
@@ -85,11 +81,6 @@ class DatabaseSetup:
             print('Tables dropped')
         else:
             print('No tables were dropped')
-
-    def show_tables(self):
-        self.cursor.execute("SHOW TABLES")
-        rows = self.cursor.fetchall()
-        print(tabulate(rows, headers=self.cursor.column_names))
 
     def is_plt_file(self, extension):
         return extension == ".plt"
