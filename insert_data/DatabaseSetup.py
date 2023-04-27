@@ -58,11 +58,11 @@ class DatabaseSetup:
         self.db_connection.commit()
 
     def create_tables(self):
-        print("\n---- Creating Databases ----\n")
+        print("\n---- Creating Tables ----\n")
         self.create_user_table()
         self.create_activity_table()
         self.create_track_point_table()
-        print("\n---- Databases Created ----\n")
+        print("\n---- Tables Created ----\n")
 
     def drop_tables(self):
         print('Are you sure you would like to drop the tables? (Y/N)')
