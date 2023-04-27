@@ -58,7 +58,7 @@ class DatabaseSetup:
         self.db_connection.commit()
 
     def create_tables(self):
-        print("\n---- Creating Tables ----\n")
+        print("\n---- Creating Tables ----")
         self.create_user_table()
         self.create_activity_table()
         self.create_track_point_table()
@@ -70,7 +70,7 @@ class DatabaseSetup:
         if decision == "Y" or decision == "y":
             query = """DROP TABLE Master_Thesis_DB.USER, Master_Thesis_DB.ACTIVITY, Master_Thesis_DB.TRACK_POINT CASCADE """
             self.cursor.execute(query)
-            print('Tables dropped')
+            print('---- Tables dropped ----')
         else:
             print('No tables were dropped')
 

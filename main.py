@@ -3,6 +3,8 @@ import sys
 from DbConnector import DbConnector
 from insert_data.DatabaseSetup import DatabaseSetup
 from Queries import Queries
+import time
+from datetime import timedelta
 
 def initiateDatabase():
     connector = DbConnector() # Connect to the database
@@ -36,10 +38,15 @@ def queries():
 
 def main():
     # Sets up the database and inserts data
+    start_time = time.monotonic()
+    print(timedelta(seconds=start_time))
     initiateDatabase()
 
     # Runs queries
     queries()
+    end_time = time.monotonic()
+    print(timedelta(seconds=end_time))
+    print(timedelta(seconds=end_time - start_time))
 
 
 if __name__ == "__main__":
