@@ -1,5 +1,27 @@
 # Master_Thesis
 
+## Reposetory Structure
+
+´´´bash
+│ ├── app.json
+│ ├── App.tsx
+│ ├── babel.config.js
+│ ├── GlobalStyles.ts
+│ ├── package-lock.json
+│ ├── package.json
+
+│ ├── README.md
+
+│ └── tsconfig.json
+
+├── package-lock.json
+
+├── package.json
+
+└── README.md # Introduction to project
+
+´´´
+
 ## Run the queries
 
 1. Clone the project
