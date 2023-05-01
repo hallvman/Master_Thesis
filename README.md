@@ -1,5 +1,37 @@
 # Master_Thesis
 
+## Run the queries
+
+1. Clone the project
+
+```bash
+git clone 'HTTPS' or 'SSH'
+```
+
+2. Open the cloned folder in terminal
+
+3. Create virtual environment
+```bash
+python3 -m venv venv
+```
+
+4. Activate virtual environment
+```bash
+source venv/bin/activate
+```
+
+5. Install packages with pip
+```bash
+pip install -r requirements.txt
+```
+
+6. Run the code
+```bash
+python3 main.py
+```
+
+## Here is all the information that are necessary in order to set up the databse in combination with docker for the private and public clouds.
+
 1. Install docker
 
 ```bash
@@ -58,7 +90,7 @@ SELECT User FROM mysql.user;
 10.Create a database:
 
 ```bash
-CREATE DATABASE test_db;
+CREATE DATABASE Master_Thesis_DB;
 ```
 
 11. Check if it is created:
