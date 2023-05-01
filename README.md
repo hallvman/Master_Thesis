@@ -3,22 +3,37 @@
 ## Reposetory Structure
 
 ´´´bash
-│ ├── app.json
-│ ├── App.tsx
-│ ├── babel.config.js
-│ ├── GlobalStyles.ts
-│ ├── package-lock.json
-│ ├── package.json
+.
 
-│ ├── README.md
+├── _MCOSC
 
-│ └── tsconfig.json
+├── __pycache__
 
-├── package-lock.json
+├── dataset
 
-├── package.json
+│ ├── data
 
-└── README.md # Introduction to project
+│ ├── .DS_Sotre
+
+│ └── labeled_ids.txt
+
+├── insert_data
+
+│ ├── __pycache
+
+│ ├── Activity.py
+
+│ └── DatabaseSetup.py
+
+├── DbConnector.py
+
+├── Queries.py
+
+├── READMED.md
+
+├── main.py
+
+└── requirements.txt
 
 ´´´
 
