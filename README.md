@@ -1,41 +1,8 @@
 # Master_Thesis
 
-## Reposetory Structure
+## Contributions
 
-´´´bash
-.
-
-├── _MCOSC
-
-├── __pycache__
-
-├── dataset
-
-│ ├── data
-
-│ ├── .DS_Sotre
-
-│ └── labeled_ids.txt
-
-├── insert_data
-
-│ ├── __pycache
-
-│ ├── Activity.py
-
-│ └── DatabaseSetup.py
-
-├── DbConnector.py
-
-├── Queries.py
-
-├── READMED.md
-
-├── main.py
-
-└── requirements.txt
-
-´´´
+Hallvard Munkås Andersen
 
 ## Run the queries
 
@@ -141,4 +108,42 @@ SHOW DATABASES;
 
 ```bash
 docker restart [container id]
+```
+
+## Repository Structure
+
+```bash
+
+.
+
+├── _MCOSC
+
+├── __pycache__
+
+├── dataset
+
+│ ├── data
+
+│ ├── .DS_Sotre
+
+│ └── labeled_ids.txt
+
+├── insert_data
+
+│ ├── __pycache
+
+│ ├── Activity.py
+
+│ └── DatabaseSetup.py
+
+├── DbConnector.py
+
+├── Queries.py
+
+├── READMED.md
+
+├── main.py
+
+└── requirements.txt
+
 ```
