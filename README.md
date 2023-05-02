@@ -1,5 +1,7 @@
 # Master_Thesis
 
+This repository is made as part of the master thesis: Private vs. Public cloud: Simplicity over security?
+
 ## Contributions
 
 Hallvard Munkås Andersen
