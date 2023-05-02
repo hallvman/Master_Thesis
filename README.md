@@ -36,7 +36,7 @@ pip install -r requirements.txt
 python3 main.py
 ```
 
-## Here is all the information that are necessary in order to set up the databse in combination with docker for the private and public clouds.
+## Installation of Docker in combination with the process of setting up the MySQL database
 
 1. Install docker
 
